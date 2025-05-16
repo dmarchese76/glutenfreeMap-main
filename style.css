@@ -240,12 +240,13 @@ margin-top: 20px;
         display: block;
       }
 
-@media (max-width: 800px) {
+@media (max-width: 865px) {
 
 body {
   padding:-2px;
 }
-
+.noresults-img {
+  width: 100%;}
 #item-container {
   /* column makes the cards on top, column-reverse makes the map on top */
   flex-direction:column-reverse;
@@ -274,6 +275,7 @@ body {
       padding:5px;
       margin: 0px;
       align-items: center;
+      line-height: 90px;
     }
   button{
       margin:5px;
@@ -286,7 +288,7 @@ h1 {
 
 }
 
-@media (min-width: 801px) and (max-width: 1199px) { 
+@media (min-width: 865px) and (max-width: 1199px) { 
 
 #container {
     max-width: 525px;

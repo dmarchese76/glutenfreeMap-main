@@ -785,7 +785,8 @@ container: 'map',
                  .setHTML(`<h2>${name}</h2><p>${address}</p>`)
              )
              .addTo(map);
-     
+          
+          
          mapMarkers.push({ marker, nbh, icon });
      
          elementDiv.innerHTML = cardText;
@@ -801,22 +802,35 @@ container: 'map',
      });
      
      let currentNBHFilter = 'all-nbh';
-     let currentFoodFilter = 'all-icon';
-     
-     function filterCards() {
-         const cards = document.querySelectorAll('.cards');
-         cards.forEach(card => {
-             const matchesNeighborhood = currentNBHFilter === 'all-nbh' || card.getAttribute('data-nbh').trim() === currentNBHFilter;
-             const matchesIcon = currentFoodFilter === 'all-icon' || card.getAttribute('data-icon').trim() === currentFoodFilter;
-             card.style.display = (matchesNeighborhood && matchesIcon) ? 'block' : 'none';
-         });
-         applyFilters();
-     }
+     let currentFoodFilter = 'Anything';
+   
+   function filterCards() {
+      const cards = document.querySelectorAll('.cards');
+      const noResults = document.getElementById('no-results');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+         const matchesNeighborhood = currentNBHFilter === 'all-nbh' || card.getAttribute('data-nbh').trim() === currentNBHFilter;
+         const matchesIcon = currentFoodFilter === 'Anything' || card.getAttribute('data-icon').trim() === currentFoodFilter;
+         const shouldShow = matchesNeighborhood && matchesIcon;
+         card.style.display = shouldShow ? 'block' : 'none';
+         if(shouldShow){
+           visibleCount++;
+         }
+      });
+      if(visibleCount === 0){
+       noResults.style.display = 'block';
+      } else {
+       noResults.style.display = 'none';
+      }
+      applyFilters();
+  }  
+  
      
      function applyFilters() {
          mapMarkers.forEach(({ marker, nbh, icon }) => {
              const matchesNeighborhood = currentNBHFilter === 'all-nbh' || nbh.trim() === currentNBHFilter;
-             const matchesIcon = currentFoodFilter === 'all-icon' || icon.trim() === currentFoodFilter;
+             const matchesIcon = currentFoodFilter === 'Anything' || icon.trim() === currentFoodFilter;
              marker.getElement().style.display = (matchesNeighborhood && matchesIcon) ? '' : 'none';
          });
          console.log("Filtering map markers by:", currentNBHFilter, currentFoodFilter);
@@ -828,8 +842,16 @@ container: 'map',
          currentNBHFilter = neighborhood === "Show All" ? 'all-nbh' : neighborhood;
          filterCards();
      }
-     
+     function showAllPlaces () {
+      allmMarkers.forEach(marker=> marker.remove());
+      allMarkers = [];
+      const marker = new maplibregl.Marker()
+      .setLngLat()
+      .addTo(map);
+      allMarkers.push(marker);
+     }
      document.getElementById('neighborhood_form').addEventListener('submit', filternbh);
+    //  document.getElementById('anything-button').addEventListener('click', () =>{showAllPlaces();})
      
      document.querySelectorAll('.button-container button').forEach(button => {
          button.addEventListener('click', function () {
