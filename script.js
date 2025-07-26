@@ -127,7 +127,7 @@ container: 'map',
         "TypeFood": "Doughnut",
         "Icon": "Bakery",
         "Link": "http://www.doughnutplant.com",
-        "Img": "donut.jpg",
+        "Img": "img/donut.jpg",
         "Long": -73.988555,
         "Lat": 40.71634
       },
