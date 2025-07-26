@@ -23,7 +23,7 @@ container: 'map',
         "TypeFood": "Bagel",
         "Icon": "Bakery",
         "Link": "https://www.agatavalentina.com/",
-        "Img": "img/bagels.jpeg",
+        "Img": ".img/bagels.jpeg",
         "Long": -73.952746,
         "Lat": 40.772563
       },
